@@ -48,6 +48,9 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
 
   const handleDelete = (id: string) => {
     console.log(id, "**********8");
+    setTodos((prev: Todo[]): any => {
+      return prev.filter((item) => item.id !== id);
+    });
   };
 
   return (
