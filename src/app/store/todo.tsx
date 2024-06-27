@@ -10,6 +10,8 @@ export type Todo = {
 export type TodosContext = {
   todos: Todo[];
   handleTodo: (task: string) => void; // call signature
+  toggle: (task: string) => void; // call signature
+  handleDelete: (task: string) => void; // call signature
 };
 
 export const todoContext = createContext<TodosContext | null>(null);
@@ -32,8 +34,24 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const toggle = (id: string) => {
+    setTodos((prev: Todo[]): any => {
+      return prev.map((todo) => {
+        if (todo.id == id) {
+          return { ...todo, completed: !todo.completed };
+        } else {
+          return todo;
+        }
+      });
+    });
+  };
+
+  const handleDelete = (id: string) => {
+    console.log(id, "**********8");
+  };
+
   return (
-    <todoContext.Provider value={{ todos, handleTodo }}>
+    <todoContext.Provider value={{ todos, handleTodo, toggle, handleDelete }}>
       {children}
     </todoContext.Provider>
   );
