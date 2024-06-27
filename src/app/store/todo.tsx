@@ -1,7 +1,5 @@
-import { createContext, useState } from "react";
-
-export const todoContext = createContext(null);
-
+"use client";
+import { createContext, useState, ReactNode, useContext } from "react";
 export type Todo = {
   id: string;
   task: string;
@@ -9,12 +7,14 @@ export type Todo = {
   createdAt: Date;
 };
 
-export type todoContext = {
+export type TodosContext = {
   todos: Todo[];
-  handleTodo: (task: string) => void;
+  handleTodo: (task: string) => void; // call signature
 };
 
-export const TodosProvider = ({ children: { children: ReactNode } }) => {
+export const todoContext = createContext<TodosContext | null>(null);
+
+export const TodosProvider = ({ children }: { children: ReactNode }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const handleTodo = (task: string) => {
@@ -39,4 +39,11 @@ export const TodosProvider = ({ children: { children: ReactNode } }) => {
   );
 };
 
-export function useTodos(): void {}
+export function useTodos() {
+  const todoContextValue = useContext(todoContext);
+  if (!todoContext) {
+    throw new Error("useTodos used outside provider");
+  }
+
+  return todoContextValue;
+}
