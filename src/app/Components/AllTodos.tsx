@@ -10,6 +10,11 @@ const AllTodos = () => {
   const filter = searchParams.get("todo");
   let filteredTodos = todos;
 
+  console.log(
+    filteredTodos,
+    "*************************************************"
+  );
+
   if (filter == "active") {
     filteredTodos = filteredTodos.filter((item: Todo) => !item.completed);
   }

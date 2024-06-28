@@ -6,7 +6,9 @@ import Navbar from "./Components/Navbar";
 const page = () => {
   return (
     <main>
-      <h2 style={{ textTransform: "uppercase" }}>Next + TypeScript</h2>
+      <div>
+        <h2 style={{ textTransform: "uppercase" }}>Next + TypeScript</h2>
+      </div>
       <Navbar />
       <AddTodo />
       <AllTodos />
