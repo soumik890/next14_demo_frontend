@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useState, ReactNode, useContext } from "react";
+
 export type Todo = {
   id: string;
   task: string;
@@ -47,11 +48,13 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleDelete = (id: string) => {
-    console.log(id, "**********8");
+    console.log(id, "**********");
     setTodos((prev: Todo[]): any => {
       return prev.filter((item) => item.id !== id);
     });
   };
+
+
 
   return (
     <todoContext.Provider value={{ todos, handleTodo, toggle, handleDelete }}>
@@ -65,6 +68,5 @@ export function useTodos() {
   if (!todoContext) {
     throw new Error("useTodos used outside provider");
   }
-
   return todoContextValue;
 }
